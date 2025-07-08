@@ -3,6 +3,7 @@ package com.reactnativestripesdk
 import android.app.Activity
 import android.content.Intent
 import android.util.Log
+import android.view.WindowManager
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.BaseActivityEventListener
 import com.facebook.react.bridge.Promise
@@ -249,6 +250,11 @@ class StripeSdkModule(
       promise.resolve(PaymentSheetFragment.createMissingInitError())
       return
     }
+
+    paymentSheetFragment?.activity?.window?.setFlags(
+      WindowManager.LayoutParams.FLAG_SECURE,
+      WindowManager.LayoutParams.FLAG_SECURE
+    );
 
     val timeoutKey = "timeout"
     if (options.hasKey(timeoutKey)) {
